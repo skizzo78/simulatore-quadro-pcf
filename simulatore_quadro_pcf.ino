@@ -1,5 +1,5 @@
 //scritto da Moratelli Denis   aggiornato il 07/06/2022
-//sketch per scheda su base arduino per simulare sensori per prova schede madri quadro
+//sketch per scheda prototipo su base arduino per simulare sensori per prova schede madri quadro
 
 
 #include <EEPROM.h>
