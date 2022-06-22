@@ -32,12 +32,12 @@ Adafruit_SSD1306 display(128, 64, &Wire, 4);
 
 //   ingressi arduino
 
-#define pin_d 2  
-#define pin_s 3        
-#define pin_bv  4    
-#define pin_av 5     
+#define pin_d 2
+#define pin_s 3
+#define pin_bv  4
+#define pin_av 5
 #define pin_ch 6
-#define pin_ap 7 
+#define pin_ap 7
 //pin 8 non connesso
 //pin 9 non connesso
 //pin 10 non connesso
@@ -61,7 +61,7 @@ bool first = true;            //flag per lettura eeprom & gestione menu
 bool flag_porta_chiusa = true;       //flag per tempo chiusura
 bool flag_porta_aperta = true;       //flag per tempo apertura
 bool flag_tempo = true;       //flag per avanzamento tempo conteggio vano
-bool set = EEPROM.read(0);    //   0 epb    1 systemlift - elmi
+int set = EEPROM.read(0);    //   0 epb    1 systemlift - elmi   2 OTIS LB2
 
 unsigned long previousMillis = 0 , millis_porta = 0 , millis_tempo = 0;
 
@@ -79,12 +79,15 @@ void setup() {
     for (;;);
   }
   display.display(); //display.clearDisplay();
+  
+  disp2; display.setCursor(0, 0); display.println(set); display.display();
+  
   delay(2000);
 
 
   PCF.write(pin_porta, 1);
   PCF.write(pin_sorve, 1);
- 
+
   pinMode(pin_ap, INPUT_PULLUP);
   pinMode(pin_ch, INPUT_PULLUP);
   pinMode(pin_av, INPUT_PULLUP);
@@ -116,8 +119,9 @@ void loop() {
     case 221: sub_menu_tipo_elmi_2v(); break;
     case 222: sub_menu_tipo_elmi_oleo(); break;
     case 223: sub_menu_tipo_elmi_3vf(); break;
-   case 23: sub_menu_tipo_systemlift(); break;
- }
+    case 23: sub_menu_tipo_systemlift(); break;
+    case 24: sub_menu_tipo_otis_lb2(); break;
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -257,7 +261,15 @@ void simulazione() {
     sp = LOW;
   }
 
-  posizione_magneti();                                  //  chiamata funzione per lettura magneti
+  if (set == 0 || set == 1) {
+    posizione_magneti();            //  chiamata funzione per lettura magneti
+  }                                 
+
+
+if(set == 2){
+  posizione_magneti_lb2();
+}
+
 
 }
 
@@ -329,9 +341,9 @@ void sub_menu_tipo_epb() {
 
   int key = readkey();
   switch (key) {
-    case 1: 
-    set=0 ; setStato(211); break;
-    case 2: setStato(23); break;
+    case 1:
+      set = 0 ; setStato(211); break;
+    case 2: setStato(24); break;
     case 3: setStato(22); break;
   }
 }
@@ -349,8 +361,8 @@ void sub_menu_tipo_epb_2v() {
 
   int key = readkey();
   switch (key) {
-    case 1: 
-    set=0 ; setStato(2); break;
+    case 1:
+      set = 0 ; setStato(2); break;
     case 2: setStato(212); break;
     case 3: setStato(213); break;
   }
@@ -369,8 +381,8 @@ void sub_menu_tipo_epb_oleo() {
 
   int key = readkey();
   switch (key) {
-    case 1: 
-    set=0 ; setStato(2); break;
+    case 1:
+      set = 0 ; setStato(2); break;
     case 2: setStato(213); break;
     case 3: setStato(211); break;
   }
@@ -389,8 +401,8 @@ void sub_menu_tipo_epb_3vf() {
 
   int key = readkey();
   switch (key) {
-    case 1: 
-    set=0 ; setStato(2); break;
+    case 1:
+      set = 0 ; setStato(2); break;
     case 2: setStato(211); break;
     case 3: setStato(212); break;
   }
@@ -408,8 +420,8 @@ void sub_menu_tipo_elmi() {
 
   int key = readkey();
   switch (key) {
-    case 1: 
-    set=1 ; setStato(221); break;
+    case 1:
+      set = 1 ; setStato(221); break;
     case 2: setStato(21); break;
     case 3: setStato(23); break;
   }
@@ -428,8 +440,8 @@ void sub_menu_tipo_elmi_2v() {
 
   int key = readkey();
   switch (key) {
-    case 1: 
-    set=1 ; setStato(2); break;
+    case 1:
+      set = 1 ; setStato(2); break;
     case 2: setStato(222); break;
     case 3: setStato(223); break;
   }
@@ -448,8 +460,8 @@ void sub_menu_tipo_elmi_oleo() {
 
   int key = readkey();
   switch (key) {
-    case 1: 
-    set=1 ; setStato(2); break;
+    case 1:
+      set = 1 ; setStato(2); break;
     case 2: setStato(223); break;
     case 3: setStato(221); break;
   }
@@ -468,8 +480,8 @@ void sub_menu_tipo_elmi_3vf() {
 
   int key = readkey();
   switch (key) {
-    case 1: 
-    set=1 ; setStato(2); break;
+    case 1:
+      set = 1 ; setStato(2); break;
     case 2: setStato(221); break;
     case 3: setStato(222); break;
   }
@@ -485,14 +497,38 @@ void sub_menu_tipo_systemlift() {
     delay(200);
   }
 
+
   int key = readkey();
   switch (key) {
-    case 1: 
-    set=1 ; setStato(2); break;
+    case 1:
+      set = 1 ; setStato(2); break;
     case 2: setStato(22); break;
+    case 3: setStato(24); break;
+  }
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+void sub_menu_tipo_otis_lb2() {
+
+  if (first) {
+    disp2; display.setCursor(0, 0); display.println("OTIS LB2"); display.display();
+    first = false;
+    delay(200);
+  }
+
+  int key = readkey();
+  switch (key) {
+    case 1:
+      set = 2 ; setStato(2); break;
+    case 2: setStato(23); break;
     case 3: setStato(21); break;
   }
 }
+
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
