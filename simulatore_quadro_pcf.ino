@@ -1,5 +1,5 @@
 //scritto da Moratelli Denis   aggiornato il 07/06/2022
-//sketch per scheda prototipo su base arduino per simulare sensori per prova schede madri quadro
+//sketch per scheda su base arduino per simulare sensori per prova schede madri quadro
 
 
 #include <EEPROM.h>
@@ -256,9 +256,9 @@ void simulazione() {
     posizione_magneti();                                  //  chiamata funzione per lettura magneti
   }
 
-  if (set == 2)  {
-    posizione_magneti_lb2();                                  //  chiamata funzione per lettura magneti  OTIS LB2
-  }
+ // if (set == 2)  {
+ //   posizione_magneti_lb2();                                  //  chiamata funzione per lettura magneti  OTIS LB2
+ // }
 
 
 }
