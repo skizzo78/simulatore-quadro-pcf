@@ -271,7 +271,7 @@ void posizione_magneti_lb2() {
     is = HIGH;
   }
   //////////////////////////////
-  if (pos >= 470) {                            //rifasatore superiore
+  if (pos >= 470) {                        //rifasatore superiore
     rs = LOW ;
   }
   ////////////////////////////////
