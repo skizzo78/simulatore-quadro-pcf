@@ -205,7 +205,7 @@ void posizione_magneti_lb2() {
 
 
 
- /////////////////////////// pos = posizione magneti nel vano/////////////////////////////
+  /////////////////////////// pos = posizione magneti nel vano/////////////////////////////
 
   if  (pos <= 5) {
     iz = HIGH;
@@ -216,68 +216,68 @@ void posizione_magneti_lb2() {
   }
   /////////////////////////////
   if (pos >= 35 && pos <= 40) {
-      id = HIGH;
+    id = HIGH;
   }
   /////////////////////////////
   if (pos >= 60 && pos <= 65) {
-      is = HIGH;
+    is = HIGH;
   }
   //////////////////////////////
-  if (pos >= 95 && pos <= 105) {
+  if (pos >= 95 && pos <= 105) {          // quota primo piano 100
     iz = HIGH;
-  }                                            // quota primo piano 100
+  }                                            
   ///////////////////////////////
   if (pos >= 135 && pos <= 140) {
-      id = HIGH;
+    id = HIGH;
   }
   /////////////////////////////
   if (pos >= 160 && pos <= 165) {
-      is = HIGH;
+    is = HIGH;
   }
   //////////////////////////////
-  if (pos >= 195 && pos <= 205) {
+  if (pos >= 195 && pos <= 205) {          // quota secondo piano 200
     iz = HIGH;
-  }                                            // quota secondo piano 200
+  }                                            
   ///////////////////////////////
   if (pos >= 235 && pos <= 240) {
-      id = HIGH;
+    id = HIGH;
   }
   /////////////////////////////
   if (pos >= 260 && pos <= 265) {
-      is = HIGH;
+    is = HIGH;
   }
   //////////////////////////////
-  if (pos >= 295 && pos <= 305) {
+  if (pos >= 295 && pos <= 305) {          // quota terzo piano 300
     iz = HIGH;
-  }                                            // quota terzo piano 300
+  }                                            
   ///////////////////////////////
   if (pos >= 335 && pos <= 340) {
-      id = HIGH;
+    id = HIGH;
   }
   /////////////////////////////
   if (pos >= 360 && pos <= 365) {
-      is = HIGH;
+    is = HIGH;
   }
   //////////////////////////////
-  if (pos >= 395 && pos <= 405) {
+  if (pos >= 395 && pos <= 405) {          // quota quarto piano 400
     iz = HIGH;
-  }                                            // quota quarto piano 400
+  }                                            
   ///////////////////////////////
   if (pos >= 435 && pos <= 440) {
-      id = HIGH;
+    id = HIGH;
   }
   /////////////////////////////
   if (pos >= 460 && pos <= 465) {
-      is = HIGH;
+    is = HIGH;
   }
   //////////////////////////////
   if (pos >= 470) {                            //rifasatore superiore
     rs = LOW ;
   }
   ////////////////////////////////
-  if (pos >= 495 && pos <= 505) {
+  if (pos >= 495 && pos <= 505) {          // quota quinto piano 500
     iz = HIGH;
-  }                                            // quota quinto piano 500
+  }                                            
   ///////////////////////////////
 
 
