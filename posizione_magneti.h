@@ -3,11 +3,11 @@
 
 void posizione_magneti() {
 
-  extern bool iz; extern bool is; extern bool id; extern bool rd; extern bool rs; extern bool set; extern int pos;
+  extern bool iz; extern bool is; extern bool id; extern bool rd;  extern bool ds; extern bool rs; extern int set; extern int pos;
 
 
-  /////////////////////////// pos = posizione magneti nel vano/////////////////////////////
-
+  /////////////////////////// pos = posizione magneti nel vano//////////////////////////////////////////////
+  //////////////////////////set =   0 epb    1 systemlift - elmi   2 OTIS LB2   3 sea fune//////////////////
   if  (pos <= 5) {
     id = HIGH;
   }                                            //quota piano terra  0
@@ -36,11 +36,14 @@ void posizione_magneti() {
   /////////////////////////////
 
   if (pos >= 60 && pos <= 65) {
-    if (set == 1) {
+    if (set == 1 || set == 3) {
       is = HIGH;
     }
     if (set == 0) {
       id = HIGH;
+    }
+    if (set == 4) {
+      ds = HIGH;
     }
   }
 
@@ -58,22 +61,28 @@ void posizione_magneti() {
   ///////////////////////////////
 
   if (pos >= 135 && pos <= 140) {
-    if (set == 1) {
+    if (set == 1 || set == 3) {
       id = HIGH;
     }
     if (set == 0) {
       is = HIGH;
+    }
+    if (set == 4) {
+      ds = HIGH;
     }
   }
 
   ///////////////////////////////
 
   if (pos >= 160 && pos <= 165) {
-    if (set == 1) {
+    if (set == 1 || set == 3) {
       is = HIGH;
     }
     if (set == 0) {
       id = HIGH;
+    }
+    if (set == 4) {
+      ds = HIGH;
     }
   }
 
@@ -91,22 +100,28 @@ void posizione_magneti() {
   ///////////////////////////////
 
   if (pos >= 235 && pos <= 240) {
-    if (set == 1) {
+    if (set == 1 || set == 3) {
       id = HIGH;
     }
     if (set == 0) {
       is = HIGH;
+    }
+    if (set == 4) {
+      ds = HIGH;
     }
   }
 
   ///////////////////////////////
 
   if (pos >= 260 && pos <= 265) {
-    if (set == 1) {
+    if (set == 1 || set == 3) {
       is = HIGH;
     }
     if (set == 0) {
       id = HIGH;
+    }
+    if (set == 4) {
+      ds = HIGH;
     }
   }
 
@@ -124,22 +139,28 @@ void posizione_magneti() {
   ///////////////////////////////
 
   if (pos >= 335 && pos <= 340) {
-    if (set == 1) {
+    if (set == 1 || set == 3) {
       id = HIGH;
     }
     if (set == 0) {
       is = HIGH;
+    }
+    if (set == 4) {
+      ds = HIGH;
     }
   }
 
   ///////////////////////////////
 
   if (pos >= 360 && pos <= 365) {
-    if (set == 1) {
+    if (set == 1 || set == 3) {
       is = HIGH;
     }
     if (set == 0) {
       id = HIGH;
+    }
+    if (set == 4) {
+      ds = HIGH;
     }
   }
 
@@ -157,11 +178,14 @@ void posizione_magneti() {
   /////////////////////////////////
 
   if (pos >= 435 && pos <= 440) {
-    if (set == 1) {
+    if (set == 1 || set == 3) {
       id = HIGH;
     }
     if (set == 0) {
       is = HIGH;
+    }
+    if (set == 4) {
+      ds = HIGH;
     }
   }
 
@@ -191,6 +215,12 @@ void posizione_magneti() {
   if (pos >= 495 && pos <= 510) {
     is = HIGH;
     iz = HIGH;
+  }
+
+
+  if (set == 3) {
+    id = !id ;
+    is = !is ;
   }
 
 }
@@ -225,7 +255,7 @@ void posizione_magneti_lb2() {
   //////////////////////////////
   if (pos >= 95 && pos <= 105) {          // quota primo piano 100
     iz = HIGH;
-  }                                            
+  }
   ///////////////////////////////
   if (pos >= 135 && pos <= 140) {
     id = HIGH;
@@ -237,7 +267,7 @@ void posizione_magneti_lb2() {
   //////////////////////////////
   if (pos >= 195 && pos <= 205) {          // quota secondo piano 200
     iz = HIGH;
-  }                                            
+  }
   ///////////////////////////////
   if (pos >= 235 && pos <= 240) {
     id = HIGH;
@@ -249,7 +279,7 @@ void posizione_magneti_lb2() {
   //////////////////////////////
   if (pos >= 295 && pos <= 305) {          // quota terzo piano 300
     iz = HIGH;
-  }                                            
+  }
   ///////////////////////////////
   if (pos >= 335 && pos <= 340) {
     id = HIGH;
@@ -261,7 +291,7 @@ void posizione_magneti_lb2() {
   //////////////////////////////
   if (pos >= 395 && pos <= 405) {          // quota quarto piano 400
     iz = HIGH;
-  }                                            
+  }
   ///////////////////////////////
   if (pos >= 435 && pos <= 440) {
     id = HIGH;
@@ -277,7 +307,7 @@ void posizione_magneti_lb2() {
   ////////////////////////////////
   if (pos >= 495 && pos <= 505) {          // quota quinto piano 500
     iz = HIGH;
-  }                                            
+  }
   ///////////////////////////////
 
 
