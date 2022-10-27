@@ -25,6 +25,7 @@ Adafruit_SSD1306 display(128, 64, &Wire, 4);
 #define pin_sorve 9    // contatto sorveglianza porte    
 #define pin_fcc 7       //  finecorsa chiusura                     
 #define pin_fca 6       //  finecorsa apertura                      
+#define pin_ds 3        //  sensore rallentamento SEA OLEO
 #define pin_co 2        //  controllo teleruttori porte (elmi)                     
 #define pin_sp 1        //  start permit                      
 
@@ -52,7 +53,7 @@ Adafruit_SSD1306 display(128, 64, &Wire, 4);
 #define pin_menu A7    // ingresso analogico pulsanti menu
 
 
-bool iz = 1 , is = 1 , id = 1 , rs = 1 , rd = 0 , sp = 1 , fcc = 0 , fca = 1 , co = 1 , ap , ch , s , d , av , bv;
+bool iz = 1 , is = 1 , id = 1 , rs = 1 , rd = 0 , ds = 0 , sp = 1 , fcc = 0 , fca = 1 , co = 1 , ap , ch , s , d , av , bv;
 
 int pos = 0 , vel = 0 , stato = 0 ;
 
@@ -61,7 +62,7 @@ bool first = true;            //flag per lettura eeprom & gestione menu
 bool flag_porta_chiusa = true;       //flag per tempo chiusura
 bool flag_porta_aperta = true;       //flag per tempo apertura
 bool flag_tempo = true;       //flag per avanzamento tempo conteggio vano
-int set = EEPROM.read(0);    //   0 epb    1 systemlift - elmi   2 OTIS LB2
+int set = EEPROM.read(0);    //   0 epb    1 systemlift - elmi   2 OTIS LB2     3 sea fune    4 sea oleo
 
 unsigned long previousMillis = 0 , millis_porta = 0 , millis_tempo = 0;
 
@@ -79,9 +80,9 @@ void setup() {
     for (;;);
   }
   display.display(); //display.clearDisplay();
-  
+
   disp2; display.setCursor(0, 0); display.println(set); display.display();
-  
+
   delay(2000);
 
 
@@ -121,6 +122,10 @@ void loop() {
     case 223: sub_menu_tipo_elmi_3vf(); break;
     case 23: sub_menu_tipo_systemlift(); break;
     case 24: sub_menu_tipo_otis_lb2(); break;
+    case 25: sub_menu_tipo_sea(); break;
+    case 251: sub_menu_tipo_sea_2v(); break;
+    case 252: sub_menu_tipo_sea_oleo(); break;
+    case 253: sub_menu_tipo_sea_3vf(); break;
   }
 }
 
@@ -174,7 +179,8 @@ void simulazione() {
   PCF.write(pin_co , co);
   PCF.write(pin_fcc , fcc);
   PCF.write(pin_fca , fca);
-
+  PCF.write(pin_ds , ds);
+ 
   co = 1;
 
   if (ap == 0) {
@@ -234,7 +240,7 @@ void simulazione() {
   if (s == 0  && pos < 500 ) {                                     //attivo salita e
 
     if (flag_tempo == true) {
-      millis_tempo = millis();
+      millis_tempo = millis(); 
       flag_tempo = false;
     }
     if (millis() - millis_tempo > vel) {
@@ -255,7 +261,7 @@ void simulazione() {
   }
 
 
-  iz = LOW; id = LOW; is = LOW; rd = HIGH; rs = HIGH; sp = HIGH;
+  iz = LOW; id = LOW; is = LOW; rd = HIGH; rs = HIGH; sp = HIGH; ds = LOW;
 
   if (s == 0 || d == 0) {                                            // funzione startpermit
     sp = LOW;
@@ -263,12 +269,16 @@ void simulazione() {
 
   if (set == 0 || set == 1) {
     posizione_magneti();            //  chiamata funzione per lettura magneti
-  }                                 
+  }
+
+  if (set == 3 || set == 4) {
+    posizione_magneti();            //  chiamata funzione per lettura magneti  SEA FUNE(3)/OLEO(4)
+  }
 
 
-if(set == 2){
-  posizione_magneti_lb2();
-}
+  if (set == 2) {
+    posizione_magneti_lb2();
+  }
 
 
 }
@@ -343,7 +353,7 @@ void sub_menu_tipo_epb() {
   switch (key) {
     case 1:
       set = 0 ; setStato(211); break;
-    case 2: setStato(24); break;
+    case 2: setStato(25); break;
     case 3: setStato(22); break;
   }
 }
@@ -524,11 +534,91 @@ void sub_menu_tipo_otis_lb2() {
     case 1:
       set = 2 ; setStato(2); break;
     case 2: setStato(23); break;
-    case 3: setStato(21); break;
+    case 3: setStato(25); break;
   }
 }
 
 
+
+
+void sub_menu_tipo_sea() {
+
+  if (first) {
+    disp2; display.setCursor(0, 0); display.println("SEA"); display.display();
+    first = false;
+    delay(200);
+  }
+
+  int key = readkey();
+  switch (key) {
+    case 1:
+      set = 1 ; setStato(251); break;
+    case 2: setStato(24); break;
+    case 3: setStato(21); break;
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+void sub_menu_tipo_sea_2v() {
+
+  if (first) {
+    disp2; display.setCursor(0, 0); display.println("2 vel"); display.display();
+    first = false;
+    delay(200);
+  }
+
+  int key = readkey();
+  switch (key) {
+    case 1:
+      set = 3 ; setStato(2); break;
+    case 2: setStato(252); break;
+    case 3: setStato(253); break;
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+void sub_menu_tipo_sea_oleo() {
+
+  if (first) {
+    disp2; display.setCursor(0, 0); display.println("oleo"); display.display();
+    first = false;
+    delay(200);
+  }
+
+  int key = readkey();
+  switch (key) {
+    case 1:
+      set = 4 ; setStato(2); break;
+    case 2: setStato(253); break;
+    case 3: setStato(251); break;
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+void sub_menu_tipo_sea_3vf() {
+
+  if (first) {
+    disp2; display.setCursor(0, 0); display.println("3vf"); display.display();
+    first = false;
+    delay(200);
+  }
+
+  int key = readkey();
+  switch (key) {
+    case 1:
+      set = 3 ; setStato(2); break;
+    case 2: setStato(251); break;
+    case 3: setStato(252); break;
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
