@@ -21,11 +21,10 @@ Adafruit_SSD1306 display(128, 64, &Wire, 4);
 #define pin_is 13       // sensore is - 61n     
 #define pin_rs 12       // rifasatore salita   
 #define pin_iz 11       // zona porte     
-#define pin_porta 10    // porte cabina     
-#define pin_sorve 9    // contatto sorveglianza porte    
+#define pin_ds 10       // sensore DS (rallentamento solamente per SEA oleo)    
+#define pin_porta 9     // contatto porte cabina   
 #define pin_fcc 7       //  finecorsa chiusura                     
 #define pin_fca 6       //  finecorsa apertura                      
-#define pin_ds 3        //  sensore rallentamento SEA OLEO
 #define pin_co 2        //  controllo teleruttori porte (elmi)                     
 #define pin_sp 1        //  start permit                      
 
@@ -87,7 +86,6 @@ void setup() {
 
 
   PCF.write(pin_porta, 1);
-  PCF.write(pin_sorve, 1);
 
   pinMode(pin_ap, INPUT_PULLUP);
   pinMode(pin_ch, INPUT_PULLUP);
@@ -185,7 +183,6 @@ void simulazione() {
 
   if (ap == 0) {
     PCF.write (pin_porta , 0);    // apro porte
-    PCF.write (pin_sorve , 0);    // apro sorveglianza
     fcc = 1;      // apro finecorsa chiusura
     co = 0;      //apro controllo teleruttore porte
     flag_porta_chiusa = true;
@@ -211,7 +208,6 @@ void simulazione() {
     }
     if (millis() - millis_porta > 4000) {    //tempo di chiusura
       PCF.write(pin_porta , 1);
-      PCF.write(pin_sorve , 1);
       fcc = 0;
     }
   }
