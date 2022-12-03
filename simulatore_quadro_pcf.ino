@@ -1,4 +1,4 @@
-//scritto da Moratelli Denis   aggiornato il 27/10/2022
+//scritto da Moratelli Denis   aggiornato il 04/12/2022
 //sketch per scheda prototipo su base arduino per simulare sensori per prova schede madri quadro
 
 
@@ -22,9 +22,11 @@ Adafruit_SSD1306 display(128, 64, &Wire, 4);
 #define pin_rs 12       // rifasatore salita   
 #define pin_iz 11       // zona porte     
 #define pin_ds 10       // sensore DS (rallentamento solamente per SEA oleo)    
-#define pin_porta 9     // contatto porte cabina   
+#define pin_porta 9     // contatto porte cabina 
+//#define pin 8     // non utilizzabile
 #define pin_fcc 7       //  finecorsa chiusura                     
-#define pin_fca 6       //  finecorsa apertura                      
+#define pin_fca 6       //  finecorsa apertura
+#define pin_sorve 5     // contatto sorveglianza porte 81/20                      
 #define pin_co 2        //  controllo teleruttori porte (elmi)                     
 #define pin_sp 1        //  start permit                      
 
@@ -178,11 +180,12 @@ void simulazione() {
   PCF.write(pin_fcc , fcc);
   PCF.write(pin_fca , fca);
   PCF.write(pin_ds , ds);
- 
+
   co = 1;
 
   if (ap == 0) {
     PCF.write (pin_porta , 0);    // apro porte
+    PCF.write (pin_sorve , 0);    // apro sorveglianza porte
     fcc = 1;      // apro finecorsa chiusura
     co = 0;      //apro controllo teleruttore porte
     flag_porta_chiusa = true;
@@ -207,7 +210,8 @@ void simulazione() {
       flag_porta_chiusa = false;
     }
     if (millis() - millis_porta > 4000) {    //tempo di chiusura
-      PCF.write(pin_porta , 1);
+      PCF.write(pin_porta , 1);    // chiudo contatto porte
+      PCF.write (pin_sorve , 1);    // chiudo sorveglianza porte
       fcc = 0;
     }
   }
@@ -236,7 +240,7 @@ void simulazione() {
   if (s == 0  && pos < 500 ) {                                     //attivo salita e
 
     if (flag_tempo == true) {
-      millis_tempo = millis(); 
+      millis_tempo = millis();
       flag_tempo = false;
     }
     if (millis() - millis_tempo > vel) {
