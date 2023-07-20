@@ -33,6 +33,7 @@ void posizione_magneti() {
     }
   }
 
+ 
   /////////////////////////////
 
   if (pos >= 60 && pos <= 65) {            //60 65
@@ -49,7 +50,7 @@ void posizione_magneti() {
 
   //////////////////////////////
 
-  if (pos >= 90 && pos <= 105) {        //90    105
+  if (pos >= 909 && pos <= 105) {        //90    105
     id = HIGH;
     iz = HIGH;
   }                                            // quota primo piano 100
@@ -88,18 +89,18 @@ void posizione_magneti() {
 
   ///////////////////////////////
 
-  if (pos >= 190 && pos <= 205) {
+  if (pos >= 190 && pos <= 205) {              //190 205
     id = HIGH;
     iz = HIGH;
   }                                            // quota secondo piano 200
-  if (pos >= 195 && pos <= 210) {
+  if (pos >= 195 && pos <= 210) {              //195 210   
     is = HIGH;
     iz = HIGH;
   }
 
   ///////////////////////////////
 
-  if (pos >= 235 && pos <= 240) {
+  if (pos >= 235 && pos <= 240) {             //235 240
     if (set == 1 || set == 3) {
       id = HIGH;
     }
@@ -113,7 +114,7 @@ void posizione_magneti() {
 
   ///////////////////////////////
 
-  if (pos >= 260 && pos <= 265) {
+  if (pos >= 260 && pos <= 265) {             //260 265
     if (set == 1 || set == 3) {
       is = HIGH;
     }
@@ -127,18 +128,18 @@ void posizione_magneti() {
 
   ///////////////////////////////
 
-  if (pos >= 290 && pos <= 305) {
+  if (pos >= 290 && pos <= 305) {               //290 305
     id = HIGH;
     iz = HIGH;
   }                                            // quota terzo piano 300
-  if (pos >= 295 && pos <= 310) {
+  if (pos >= 295 && pos <= 310) {              //295 310
     is = HIGH;
     iz = HIGH;
   }
 
   ///////////////////////////////
 
-  if (pos >= 335 && pos <= 340) {
+  if (pos >= 335 && pos <= 340) {              //335 340
     if (set == 1 || set == 3) {
       id = HIGH;
     }
@@ -152,7 +153,7 @@ void posizione_magneti() {
 
   ///////////////////////////////
 
-  if (pos >= 360 && pos <= 365) {
+  if (pos >= 360 && pos <= 365) {              //360 365
     if (set == 1 || set == 3) {
       is = HIGH;
     }
@@ -166,18 +167,18 @@ void posizione_magneti() {
 
   ///////////////////////////////
 
-  if (pos >= 390 && pos <= 405) {
+  if (pos >= 390 && pos <= 405) {              //390 405
     id = HIGH;
     iz = HIGH;
   }                                            // quota quarto piano 400
-  if (pos >= 395 && pos <= 410) {
+  if (pos >= 395 && pos <= 410) {              // 395 410   
     is = HIGH;
     iz = HIGH;
   }
 
   /////////////////////////////////
 
-  if (pos >= 435 && pos <= 440) {
+  if (pos >= 435 && pos <= 440) {                 //435 440
     if (set == 1 || set == 3) {
       id = HIGH;
     }
@@ -191,7 +192,7 @@ void posizione_magneti() {
 
   /////////////////////////////////
 
-  if (pos >= 460 && pos <= 465) {
+  if (pos >= 460 && pos <= 465) {                //460 465
     if (set == 1) {
       is = HIGH;
     }
