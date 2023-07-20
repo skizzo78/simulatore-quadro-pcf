@@ -8,10 +8,10 @@ void posizione_magneti() {
 
   /////////////////////////// pos = posizione magneti nel vano//////////////////////////////////////////////
   //////////////////////////set =   0 epb    1 systemlift - elmi   2 OTIS LB2   3 sea fune//////////////////
-  if  (pos <= 5) {
+  if  (pos <= 5) {           //5 
     id = HIGH;
   }                                            //quota piano terra  0
-  if (pos <= 10) {
+  if (pos <= 10) {           //10
     is = HIGH;
     iz = HIGH;
   }
@@ -49,18 +49,18 @@ void posizione_magneti() {
 
   //////////////////////////////
 
-  if (pos >= 90 && pos <= 105) {
+  if (pos >= 90 && pos <= 105) {        //90    105
     id = HIGH;
     iz = HIGH;
   }                                            // quota primo piano 100
-  if (pos >= 95 && pos <= 110) {
+  if (pos >= 95 && pos <= 110) {               //95    110
     is = HIGH;
     iz = HIGH;
   }
 
   ///////////////////////////////
 
-  if (pos >= 135 && pos <= 140) {
+  if (pos >= 135 && pos <= 140) {            //135 140
     if (set == 1 || set == 3) {
       id = HIGH;
     }
@@ -74,7 +74,7 @@ void posizione_magneti() {
 
   ///////////////////////////////
 
-  if (pos >= 160 && pos <= 165) {
+  if (pos >= 160 && pos <= 165) {           //160    165
     if (set == 1 || set == 3) {
       is = HIGH;
     }
