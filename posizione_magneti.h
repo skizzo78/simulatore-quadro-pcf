@@ -18,13 +18,13 @@ void posizione_magneti() {
 
   ////////////////////////////
 
-  if (pos <= 30) {                             //rifasatore inferiore
+  if (pos <= 30) {                             // rifasatore inferiore 30
     rd = LOW;
   }
 
   /////////////////////////////
 
-  if (pos >= 35 && pos <= 40) {
+  if (pos >= 35 && pos <= 40) {        //35 40
     if (set == 1) {
       id = HIGH;
     }
@@ -35,7 +35,7 @@ void posizione_magneti() {
 
   /////////////////////////////
 
-  if (pos >= 60 && pos <= 65) {
+  if (pos >= 60 && pos <= 65) {            //60 65
     if (set == 1 || set == 3) {
       is = HIGH;
     }
