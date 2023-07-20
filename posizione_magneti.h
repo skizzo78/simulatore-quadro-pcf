@@ -50,7 +50,7 @@ void posizione_magneti() {
 
   //////////////////////////////
 
-  if (pos >= 909 && pos <= 105) {        //90    105
+  if (pos >= 90 && pos <= 105) {        //90    105
     id = HIGH;
     iz = HIGH;
   }                                            // quota primo piano 100
