@@ -51,7 +51,7 @@ Adafruit_SSD1306 display(128, 64, &Wire, 4);
 //pin   A4 seriale I2c SDA
 //pin   A5 seriale I2c SCL
 //pin   A6 non connesso
-#define pin_menu A7    // ingresso analogico pulsanti menu
+#define pin_menu A7   // ingresso analogico pulsanti menu
 
 
 bool iz = 1 , is = 1 , id = 1 , rs = 1 , rd = 0 , ds = 0 , sp = 1 , fcc = 0 , fca = 1 , co = 1 , ap , ch , s , d , av , bv;
