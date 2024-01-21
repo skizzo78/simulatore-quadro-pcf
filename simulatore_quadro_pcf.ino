@@ -1,4 +1,4 @@
-//scritto da Moratelli Denis   aggiornato il 04/12/2022
+//scritto da Moratelli Denis   aggiornato il 22/01/2024
 //sketch per scheda prototipo su base arduino per simulare sensori per prova schede madri quadro
 
 
